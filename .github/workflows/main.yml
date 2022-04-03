@@ -27,7 +27,16 @@ jobs:
           username: ${{secrets.DOCKERHUB_USER}} # optional
           # Password or personal access token used to log against the Docker registry
           password: ${{secrets.DOCKERHUB_PWD}} # ${{ # optional
-          
+      - name: Docker build and push
+        uses: docker/build-push-action@v2.7.0
+        with:
+          context: ./src
+          file: ./src/Dockerfile
+          push: true
+          tags: |
+            cabicho/rotten-potatoes:lates
+            cabicho/rotten-potatoes:${{github.run_number}}
+            
           # Specifies whether the given registry is ECR (auto, true or false)
           #ecr: # optional, default is autoUB
           # Log out from the Docker registry at the end of a job
